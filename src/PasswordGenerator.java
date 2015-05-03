@@ -56,7 +56,6 @@ public class PasswordGenerator
 		catch (Exception e) 
 		{
 			System.out.println("Something went wrong when loading words.txt");
-			e.printStackTrace();
 		}
 
 	}

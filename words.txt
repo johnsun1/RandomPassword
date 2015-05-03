@@ -10,3 +10,6 @@ green
 purple
 hue
 color
+get
+hub
+wind
