@@ -6,7 +6,7 @@ import java.util.Scanner;
  Generates a random password (xkcd style).
  Inspired by http://xkcd.com/936/
  @author John Sun
- @version 1.1 1 May 2015
+ @version 1.0 1 May 2015
  */
 
 public class PasswordGenerator 

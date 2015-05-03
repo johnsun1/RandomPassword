@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  User interface to PasswordGenerator.java
  @author John Sun
- @version 1.1 1 May 2015
+ @version 1.0 1 May 2015
  */
 
 public class MainMenu 
