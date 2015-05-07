@@ -1,21 +1,25 @@
 import java.io.File;
+
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
  Generates a random password (xkcd style).
  Inspired by http://xkcd.com/936/
  @author John Sun
- @version 1.0 1 May 2015
+ @version 1.5 6 May 2015
  */
 
 public class PasswordGenerator 
 {
 	private int numWords;
+	private String password;
 	private ArrayList<String> words;
 
 	/**
 	 Constructor
+	 @param numWords number of words per password.
 	 */
 	public PasswordGenerator(int numWords) 
 	{
@@ -25,7 +29,7 @@ public class PasswordGenerator
 	}
 
 	/**
-	 Loads word bank from text file
+	 Loads words from words.txt into ArrayList<String> words
 	 */
 	public void loadFile()
 	{
@@ -39,7 +43,7 @@ public class PasswordGenerator
 			}
 			catch (Exception e)
 			{
-				System.out.println("Something went wrong when creating words.txt");
+				System.out.println("Something went wrong when creating words.txt!");
 			}
 		}
 
@@ -55,18 +59,18 @@ public class PasswordGenerator
 		} 
 		catch (Exception e) 
 		{
-			System.out.println("Something went wrong when loading words.txt");
+			System.out.println("Something went wrong when loading words.txt!");
 		}
-
 	}
 
 	/**
-	 Generates a random integer from 0 to the length of the word bank (to avoid out of bounds error).
-	 @return a random integer.
+	 Generates a random integer from 0 to words.size() (to avoid out of bounds error).
+	 @return a random integer from 0 to words.size().
 	 */
 	public int randomInteger() 
 	{
-		return (int) (Math.random() * words.size());
+		Random rand = new Random();
+		return rand.nextInt(words.size());
 	}
 
 	/**
@@ -75,12 +79,12 @@ public class PasswordGenerator
 	 */
 	public String generatePass() 
 	{
-		String password = "";
+		password = "";
 		if (words.size() > 0)
 		{
 			for (int i = 0; i < numWords; i++) 
 			{
-				password += words.get(randomInteger()) + " ";
+				password = password + words.get(randomInteger()) + " ";
 			}
 		}
 		else
@@ -88,14 +92,5 @@ public class PasswordGenerator
 			return "words.txt is empty therefore no passwords are generated.";
 		}
 		return password;
-	}
-
-	/**
-	 Accessor for numWords.
-	 * @return number of words password is to have.
-	 */
-	public int getNumWords() 
-	{
-		return numWords;
 	}
 }
