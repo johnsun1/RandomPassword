@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  User interface to PasswordGenerator.java
  @author John Sun
- @version 1.0 1 May 2015
+ @version 1.6 8 May 2015
  */
 
 public class MainMenu 
@@ -12,17 +12,18 @@ public class MainMenu
 	{
 		boolean exit = false;
 		Scanner in = new Scanner(System.in);
-		
+		PasswordGenerator pass = new PasswordGenerator();
+
 		System.out.println("Welcome to the random password generator.");
-		
+
 		while (!exit) 
 		{
 			System.out.println("P - generate a random password | Q - quit");
 			String choice = in.next();
 			choice = choice.toUpperCase(); //to ensure menu will work if user inputs lower case letters
-			
+
 			System.out.println(""); //formatting
-			
+
 			if (choice.equals("P")) 
 			{
 				System.out.print("How many passwords to generate? (at least 1): ");
@@ -35,10 +36,9 @@ public class MainMenu
 
 				for (int i = 0; i < numPasswords; i++) 
 				{
-					PasswordGenerator pass = new PasswordGenerator(numWords);
-					System.out.println(pass.generatePass());
+					System.out.println(pass.generatePass(numWords));
 				}
-				
+
 				System.out.println(""); //formatting
 			}
 			else if (choice.equals("Q")) 

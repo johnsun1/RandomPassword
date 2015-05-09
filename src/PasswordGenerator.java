@@ -8,23 +8,21 @@ import java.util.Scanner;
  Generates a random password (xkcd style).
  Inspired by http://xkcd.com/936/
  @author John Sun
- @version 1.5 6 May 2015
+ @version 1.6 8 May 2015
  */
-
 public class PasswordGenerator 
 {
-	private int numWords;
 	private String password;
 	private ArrayList<String> words;
+	private Random rand;
 
 	/**
 	 Constructor
-	 @param numWords number of words per password.
 	 */
-	public PasswordGenerator(int numWords) 
+	public PasswordGenerator() 
 	{
-		this.numWords = numWords;
 		words = new ArrayList<String>();
+		rand = new Random();
 		loadFile();
 	}
 
@@ -69,17 +67,17 @@ public class PasswordGenerator
 	 */
 	public int randomInteger() 
 	{
-		Random rand = new Random();
 		return rand.nextInt(words.size());
 	}
 
 	/**
 	 Generates a random password.
+	 @param numWords the number of words per password
 	 @return a random password.
 	 */
-	public String generatePass() 
+	public String generatePass(int numWords) 
 	{
-		password = "";
+		password = ""; //there must be a new password string every time generatePass is called.
 		if (words.size() > 0)
 		{
 			for (int i = 0; i < numWords; i++) 
