@@ -1,7 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,14 +9,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- User interface to PasswordGenerator.java
- @author John Sun
- @version 2.0 8 May 2015
+ * User interface to PasswordGenerator.java
+ * 
+ * @author John Sun
+ * @version 2.0 9 May 2015
  */
-public class MainMenu 
-{	
-	public static void main(String [] args) 
-	{
+public class MainMenu {
+	public static void main(String[] args) {
 		PasswordGenerator pass = new PasswordGenerator();
 		JFrame frame = new JFrame("Password Generator");
 		frame.setLayout(new GridLayout(3, 2));
@@ -32,48 +30,39 @@ public class MainMenu
 		JLabel labelTwo = new JLabel("Number of words per password: ");
 		JTextField fieldTwo = new JTextField();
 
-		JTextArea textArea = new JTextArea();		
+		JTextArea textArea = new JTextArea();
 		JScrollPane scroll = new JScrollPane(textArea);
 		frame1.add(scroll);
 
 		JButton button = new JButton("Go!");
-		button.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				frame1.setVisible(true);
-				frame1.setLocation(410, 0);
-
-				try
-				{
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					frame1.setVisible(true);
+					
 					int numPass = Integer.parseInt(fieldOne.getText());
 					int numWords = Integer.parseInt(fieldTwo.getText());
 
 					textArea.setText(pass.generatePass(numWords));
-					textArea.append("\n"); //formatting
+					textArea.append("\n"); // formatting
 
-					for (int i = 0; i < numPass - 1; i++)
-					{
+					for (int i = 0; i < numPass - 1; i++) {
 						textArea.append(pass.generatePass(numWords));
-						textArea.append("\n"); //formatting
+						textArea.append("\n"); // formatting
 					}
-				}
-				catch (NumberFormatException e)
-				{
+				} catch (NumberFormatException e) {
 					textArea.setText("You have entered a value that is not a number.");
 				}
 			}
 		});
 
 		JButton button1 = new JButton("Reset");
-		button1.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
+		button1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				textArea.setText("");
 				fieldOne.setText("");
 				fieldTwo.setText("");
-			}		
+			}
 		});
 
 		frame.add(labelOne);
