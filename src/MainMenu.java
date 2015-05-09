@@ -1,56 +1,90 @@
-import java.util.Scanner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  User interface to PasswordGenerator.java
  @author John Sun
- @version 1.6 8 May 2015
+ @version 2.0 8 May 2015
  */
-
 public class MainMenu 
 {	
 	public static void main(String [] args) 
 	{
-		boolean exit = false;
-		Scanner in = new Scanner(System.in);
 		PasswordGenerator pass = new PasswordGenerator();
+		JFrame frame = new JFrame("Password Generator");
+		frame.setLayout(new GridLayout(3, 2));
+		frame.setSize(400, 200);
 
-		System.out.println("Welcome to the random password generator.");
+		JFrame frame1 = new JFrame("Password Results");
+		frame1.setSize(400, 200);
 
-		while (!exit) 
+		JLabel labelOne = new JLabel("Number of passwords: ");
+		JTextField fieldOne = new JTextField();
+
+		JLabel labelTwo = new JLabel("Number of words per password: ");
+		JTextField fieldTwo = new JTextField();
+
+		JTextArea textArea = new JTextArea();		
+		JScrollPane scroll = new JScrollPane(textArea);
+		frame1.add(scroll);
+
+		JButton button = new JButton("Go!");
+		button.addActionListener(new ActionListener() 
 		{
-			System.out.println("P - generate a random password | Q - quit");
-			String choice = in.next();
-			choice = choice.toUpperCase(); //to ensure menu will work if user inputs lower case letters
-
-			System.out.println(""); //formatting
-
-			if (choice.equals("P")) 
+			public void actionPerformed(ActionEvent arg0) 
 			{
-				System.out.print("How many passwords to generate? (at least 1): ");
-				int numPasswords = in.nextInt();
+				frame1.setVisible(true);
+				frame1.setLocation(410, 0);
 
-				System.out.print("How many words should each password be? (at least 1): ");
-				int numWords = in.nextInt();
-
-				System.out.println("Generating " + numPasswords + " passwords that are " + numWords + " words long (each).");
-
-				for (int i = 0; i < numPasswords; i++) 
+				try
 				{
-					System.out.println(pass.generatePass(numWords));
-				}
+					int numPass = Integer.parseInt(fieldOne.getText());
+					int numWords = Integer.parseInt(fieldTwo.getText());
 
-				System.out.println(""); //formatting
+					textArea.setText(pass.generatePass(numWords));
+					textArea.append("\n"); //formatting
+
+					for (int i = 0; i < numPass - 1; i++)
+					{
+						textArea.append(pass.generatePass(numWords));
+						textArea.append("\n"); //formatting
+					}
+				}
+				catch (NumberFormatException e)
+				{
+					textArea.setText("You have entered a value that is not a number.");
+				}
 			}
-			else if (choice.equals("Q")) 
+		});
+
+		JButton button1 = new JButton("Reset");
+		button1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) 
 			{
-				System.out.println("Thank you for using the random password generator.");
-				exit = true;
-			}
-			else 
-			{
-				System.out.println("You have entered an invalid menu option.");
-			}
-		}
-		in.close();
+				textArea.setText("");
+				fieldOne.setText("");
+				fieldTwo.setText("");
+			}		
+		});
+
+		frame.add(labelOne);
+		frame.add(fieldOne);
+		frame.add(labelTwo);
+		frame.add(fieldTwo);
+		frame.add(button);
+		frame.add(button1);
+
+		frame.setVisible(true);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
