@@ -24,14 +24,12 @@ public class PasswordGenerator {
 	}
 
 	/**
-	 * Generates a random password.
-	 * @param numPass the number of passwords to generate    
+	 * Generates a random password. 
 	 * @param numWords the number of words per password          
 	 * @return a random password.
 	 */
 	public String generatePass(int numWords) {
-		password = ""; // there must be a new password string every time
-						// generatePass is called.
+		password = ""; // there must be a new password string every time generatePass is called.
 		if (words.size() > 0) {
 			for (int i = 0; i < numWords; i++) {
 				password = password + words.get(randomInteger()) + " ";
@@ -52,8 +50,7 @@ public class PasswordGenerator {
 			try {
 				wordBank.createNewFile();
 			} catch (Exception e) {
-				System.out
-						.println("Something went wrong when creating words.txt!");
+				System.out.println("Something went wrong when creating words.txt!");
 			}
 		}
 
