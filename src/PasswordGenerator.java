@@ -1,25 +1,25 @@
 import java.io.File;
+import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 /**
  * Generates a random password (xkcd style). Inspired by http://xkcd.com/936/
  * 
  * @author John Sun
- * @version 2.0 9 May 2015
+ * @version 2.1 11 May 2015
  */
 public class PasswordGenerator {
 	private String password;
 	private ArrayList<String> words;
-	private Random rand;
+	private SecureRandom rand;
 
 	/**
 	 * Constructor
 	 */
 	public PasswordGenerator() {
 		words = new ArrayList<String>();
-		rand = new Random();
+		rand = new SecureRandom();
 		loadFile();
 	}
 
