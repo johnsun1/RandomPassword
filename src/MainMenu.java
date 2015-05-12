@@ -1,9 +1,11 @@
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -12,17 +14,26 @@ import javax.swing.JTextField;
  * User interface to PasswordGenerator.java
  * 
  * @author John Sun
- * @version 2.0 9 May 2015
+ * @version 2.1 11 May 2015
  */
 public class MainMenu {
 	public static void main(String[] args) {
 		PasswordGenerator pass = new PasswordGenerator();
+		
+		//master frame
 		JFrame frame = new JFrame("Password Generator");
-		frame.setLayout(new GridLayout(3, 2));
-		frame.setSize(400, 200);
+		frame.setLayout(new BorderLayout());
+		frame.setSize(700, 200);
 
-		JFrame frame1 = new JFrame("Password Results");
-		frame1.setSize(400, 200);
+		//main menu
+		JPanel panel = new JPanel();
+		panel.setSize(200, 200);
+		panel.setLayout(new GridLayout(3,2));
+		
+		//password results field
+		JPanel panel1 = new JPanel();
+		panel1.setSize(200, 200);
+		panel1.setLayout(new BorderLayout());
 
 		JLabel labelOne = new JLabel("Number of passwords: ");
 		JTextField fieldOne = new JTextField();
@@ -32,20 +43,18 @@ public class MainMenu {
 
 		JTextArea textArea = new JTextArea();
 		JScrollPane scroll = new JScrollPane(textArea);
-		frame1.add(scroll);
 
 		JButton button = new JButton("Go!");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					frame1.setVisible(true);
-					
+				try {				
 					int numPass = Integer.parseInt(fieldOne.getText());
 					int numWords = Integer.parseInt(fieldTwo.getText());
 
 					textArea.setText(pass.generatePass(numWords));
 					textArea.append("\n"); // formatting
 
+					//numPass-1 because one password is already added to the text area outside the loop
 					for (int i = 0; i < numPass - 1; i++) {
 						textArea.append(pass.generatePass(numWords));
 						textArea.append("\n"); // formatting
@@ -65,15 +74,17 @@ public class MainMenu {
 			}
 		});
 
-		frame.add(labelOne);
-		frame.add(fieldOne);
-		frame.add(labelTwo);
-		frame.add(fieldTwo);
-		frame.add(button);
-		frame.add(button1);
+		panel.add(labelOne);
+		panel.add(fieldOne);
+		panel.add(labelTwo);
+		panel.add(fieldTwo);
+		panel.add(button);
+		panel.add(button1);
+		panel1.add(scroll);
 
+		frame.add(panel, BorderLayout.WEST);
+		frame.add(panel1, BorderLayout.CENTER);
 		frame.setVisible(true);
-
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
