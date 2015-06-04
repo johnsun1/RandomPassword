@@ -4,73 +4,89 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Generates a random password (xkcd style). Inspired by http://xkcd.com/936/
- * 
- * @author John Sun
- * @version 2.1 11 May 2015
+ Generates a random password (xkcd style). Inspired by http://xkcd.com/936/ 
+ @author John Sun
+ @version 2.2 4 June 2015
  */
-public class PasswordGenerator {
+public class PasswordGenerator 
+{
 	private String password;
 	private ArrayList<String> words;
 	private SecureRandom rand;
 
 	/**
-	 * Constructor
+	 Constructor
 	 */
-	public PasswordGenerator() {
+	public PasswordGenerator() 
+	{
 		words = new ArrayList<String>();
 		rand = new SecureRandom();
 		loadFile();
 	}
 
 	/**
-	 * Generates a random password. 
-	 * @param numWords the number of words per password          
-	 * @return a random password.
+	 Generates a random password. 
+	 @param numWords the number of words per password          
+	 @return a random password.
 	 */
-	public String generatePass(int numWords) {
+	public String generatePass(int numWords) 
+	{
 		password = ""; // there must be a new password string every time generatePass is called.
-		if (words.size() > 0) {
-			for (int i = 0; i < numWords; i++) {
+		if (words.size() > 0) 
+		{
+			for (int i = 0; i < numWords; i++) 
+			{
 				password = password + words.get(randomInteger()) + " ";
 			}
-		} else {
+		} 
+		else 
+		{
 			return "words.txt is empty therefore no passwords are generated.";
 		}
 		return password;
 	}
 
 	/**
-	 * Loads words from words.txt into ArrayList<String> words
+	 Loads words from words.txt into ArrayList<String> words
 	 */
-	public void loadFile() {
+	public void loadFile() 
+	{
 		File wordBank = new File("words.txt");
 
-		if (!wordBank.exists()) {
-			try {
+		if (!wordBank.exists()) 
+		{
+			try 
+			{
 				wordBank.createNewFile();
-			} catch (Exception e) {
+			}
+			catch (Exception e) 
+			{
 				System.out.println("Something went wrong when creating words.txt!");
 			}
 		}
 
-		try {
+		try 
+		{
 			Scanner input = new Scanner(new File("words.txt"));
 
-			while (input.hasNextLine()) {
+			while (input.hasNextLine()) 
+			{
 				words.add(input.nextLine());
 			}
 			input.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e) 
+		{
 			System.out.println("Something went wrong when loading words.txt!");
 		}
 	}
 
 	/**
-	 * Generates a random integer from 0 to words.size() (to avoid out of bounds error).
-	 * @return a random integer from 0 to words.size().
+	 Generates a random integer from 0 to words.size() (to avoid out of bounds error).
+	 @return a random integer from 0 to words.size().
 	 */
-	public int randomInteger() {
+	public int randomInteger() 
+	{
 		return rand.nextInt(words.size());
 	}
 }
