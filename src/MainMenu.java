@@ -13,12 +13,10 @@ import javax.swing.JTextField;
 /**
  User interface to PasswordGenerator.java
  @author John Sun
- @version 2.2 4 June 2015
+ @version 2.3 	5 April 2017
  */
-public class MainMenu 
-{
-	public static void main(String[] args) 
-	{
+public class MainMenu {
+	public static void main(String[] args) {
 		PasswordGenerator pass = new PasswordGenerator();
 
 		//master frame
@@ -46,12 +44,9 @@ public class MainMenu
 		JScrollPane scroll = new JScrollPane(textArea);
 
 		JButton button = new JButton("Go!");
-		button.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				try 
-				{				
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
 					int numPass = Integer.parseInt(fieldOne.getText());
 					int numWords = Integer.parseInt(fieldTwo.getText());
 
@@ -59,46 +54,35 @@ public class MainMenu
 					long start = System.currentTimeMillis();
 
 					//if the user requests zero passwords, do not generate any passwords.
-					if (numPass < 1)
-					{
+					if (numPass < 1) {
 						return;
 					}
-					
+
 					textArea.setText(pass.generatePass(numWords) + "\n");
 
 					//numPass-1 because one password is already added to the text area outside the loop
-					for (int i = 0; i < numPass - 1; i++) 
-					{
+					for (int i = 0; i < numPass - 1; i++) {
 						textArea.append(pass.generatePass(numWords) + "\n");
 					}
 
 					//end time
 					long elapsed = System.currentTimeMillis() - start;
-					if (numPass > 1)
-					{
+					if (numPass > 1) {
 						textArea.append("\n" + numPass + " passwords generated in " + elapsed + "ms");
-					} 
-					else if (numPass <= 1)
-					{
+					} else if (numPass <= 1) {
 						textArea.append("\n" + numPass + " password generated in " + elapsed + "ms");
 					}
-				}
-				catch (NumberFormatException e) 
-				{
+				} catch (NumberFormatException e) {
 					textArea.setText("You have entered a value that is not a number.");
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					textArea.setText("Something went wrong when attempting to generate passwords.");
 				}
 			}
 		});
 
 		JButton button1 = new JButton("Reset");
-		button1.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
+		button1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				textArea.setText("");
 				fieldOne.setText("");
 				fieldTwo.setText("");
